@@ -1,0 +1,78 @@
+package codsoft;
+import java.util.Scanner;
+
+class StudentGradeCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number of semesters: ");
+        int numSemesters = scanner.nextInt();
+        scanner.nextLine(); 
+
+        double totalCGPA = 0;
+
+        for (int semester = 1; semester <= numSemesters; semester++) {
+            System.out.print("Enter the number of subjects in Semester " + semester + ": ");
+            int numSubjects = scanner.nextInt();
+            scanner.nextLine(); 
+            if (numSubjects <= 0) {
+                System.out.println("Invalid number of subjects. Please enter a positive number.");
+                continue;
+            }
+
+            double totalMarks = 0;
+
+            for (int subject = 1; subject <= numSubjects; subject++) {
+                System.out.print("Enter marks obtained in subject " + subject + " (out of 100): ");
+                double subjectMarks = scanner.nextDouble();
+                totalMarks += subjectMarks;
+            }
+
+            // Calculate Average Percentage
+            double averagePercentage = (totalMarks / (numSubjects * 100)) * 100;
+
+            // Calculate GPA for this semester
+            double GPA = calculateGPA(averagePercentage);
+
+            // Display Semester Results
+            displaySemesterResults(semester, totalMarks, averagePercentage, GPA);
+
+            // Add GPA to the total CGPA
+            totalCGPA += GPA;
+        }
+
+        // Calculate CGPA
+        double CGPA = totalCGPA / numSemesters;
+
+        // Display Overall Results
+        displayOverallResults(CGPA);
+
+        scanner.close();
+    }
+
+    private static double calculateGPA(double averagePercentage) {
+        if (averagePercentage >= 90) {
+            return 4.0;
+        } else if (averagePercentage >= 80) {
+            return 3.5;
+        } else if (averagePercentage >= 70) {
+            return 3.0;
+        } else if (averagePercentage >= 60) {
+            return 2.5;
+        } else {
+            return 2.0;
+        }
+    }
+
+    private static void displaySemesterResults(int semester, double totalMarks, double averagePercentage, double GPA) {
+        System.out.println("\nSemester " + semester + " Results:");
+        System.out.println("Total Marks: " + totalMarks);
+        System.out.println("Average Percentage: " + averagePercentage + "%");
+        System.out.println("GPA: " + GPA);
+    }
+
+    private static void displayOverallResults(double CGPA) {
+        System.out.println("\nOverall Results:");
+        System.out.println("CGPA: " + CGPA);
+    }
+}
