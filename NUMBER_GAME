@@ -1,0 +1,74 @@
+
+package codesoft;
+import java.util.Random;// importing a random lib to choose a random no
+import java.util.Scanner;//importing Scanner lib to prom
+
+public class Number_Game {
+  public static void main(String[] args){
+      
+     Scanner sc = new Scanner(System.in); 
+     
+      int min = 1;
+       int max=100;
+       Random rd = new Random();
+       int NumberToGuess = rd.nextInt(max - min +1)+ min;
+         
+      String pinkColor = "\u001B[35m";  // for pink color text in out put
+      String resetColor = "\u001B[0m"; // for rest the previous text
+     System.out.println(pinkColor+"TIME  TO  TEST  YOUR  LUCK \n WELCOME TO NUMBER QUEST "+resetColor);
+     System.out.println("Instructions :  All you have to do to win the ganne is that; Guess the same number about which i m thinking");
+     System.out.println("\n I'm thinking of a number between " + min + " and " + max + ".");
+          
+     String  playAgain = "yes" ;
+     int totalAttempts = 0;
+     int totalRounds = 0;
+    
+     int maxAttempt=5; 
+     boolean correctnumber = false;
+     
+     while(playAgain.equals("yes")) {
+      
+        int attempt=0;
+      while(attempt < maxAttempt){
+          if (attempt==0 && totalRounds == 0){
+           System.out.print("\nNow it's your turn to guess that number :");
+          }else{
+           System.out.print("Try again:");
+          }
+        int userGuess =sc.nextInt();
+         
+         if (NumberToGuess == userGuess){
+          System.out.println("Congratulations! You guessed the correct number " + NumberToGuess + " in " + (attempt +1)+ " attempts.");
+                    totalAttempts += (attempt+1);
+                    totalRounds++;
+                    correctnumber = true;
+                    break;
+                } else if (userGuess <  NumberToGuess  ) {
+                    System.out.println("Too low!");
+                                   } else {
+                    System.out.println("Too high!");
+            }   
+           attempt++;
+        }
+     
+      if (!correctnumber) {
+               totalRounds+=1;
+                System.out.println("Sorry, you've reached the maximum number of attempts. The number was " + NumberToGuess + ".");
+            }
+     
+         System.out.print("Do you want to play again? (yes/no): ");
+            playAgain = sc.next().toLowerCase();
+            if (!playAgain.equals("yes")) {
+                playAgain="no";
+                
+            }
+            NumberToGuess = rd.nextInt(max - min + 1) + min;
+             correctnumber = false;
+            }
+       System.out.println("Game Over! You played " + totalRounds + " rounds and had an average of " + (totalAttempts / (double) totalRounds) + " attempts per round.");
+      
+     
+  }
+    
+}
+
